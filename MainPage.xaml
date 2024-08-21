@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StoredManageHelper.ViewModel"
+             xmlns:Model="clr-namespace:StoredManageHelper.Model"
+             x:DataType="local:StoredMannagedHelperViewModel"
+             x:Class="StoredManageHelper.MainPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="33*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="48*"/>
+        </Grid.RowDefinitions>
+        <Entry   Grid.Column="1"  Grid.ColumnSpan="1" Grid.Row="0" BackgroundColor="Black" Text="hello,world!"  />
+        <Entry   Grid.Column="2"  Text="{Binding Path}"  Placeholder ="在这里输入查询地址"  Grid.ColumnSpan="1" Grid.Row="0" BackgroundColor="Aqua"  />
+        <ListView   Grid.Column="1"  Grid.ColumnSpan="1" Grid.Row="1" BackgroundColor="#535854"   />
+        <ListView   Grid.Column="2"  Grid.ColumnSpan="1" Grid.Row="1"   ItemsSource="{Binding ListView2Info}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="Model:StroredModel">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"  Grid.Row="0"
+                               Text="{Binding Path}"
+                              FontAttributes="Bold" />
+                            <Label Grid.Column="1"  Grid.Row="0"
+                           Text="{Binding Size}"
+                           FontAttributes="Bold" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView   Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="2" BackgroundColor="Blue"  ItemsSource="{Binding ListView3Info}"  >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="Model:StroredModel">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"  Grid.Row="0"
+                       Text="{Binding Path}"
+                      FontAttributes="Bold" />
+                            <Label Grid.Column="1"  Grid.Row="0"
+                   Text="{Binding Size}"
+                   FontAttributes="Bold" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button  Grid.Column="0" IsEnabled="True"  Grid.Row="3" Command="{Binding startmCommand}" Text="{Binding Info}" ></Button>
+    </Grid>
+
+</ContentPage>
