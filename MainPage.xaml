@@ -5,8 +5,19 @@
              xmlns:Model="clr-namespace:StoredManageHelper.Model"
              x:DataType="local:StoredMannagedHelperViewModel"
              x:Class="StoredManageHelper.MainPage">
-
-    <Grid>
+    <Grid >
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFB6C1" Offset="0.0" />
+                <!-- Light Pink -->
+                <GradientStop Color="#ADD8E6" Offset="0.33" />
+                <!-- Light Blue -->
+                <GradientStop Color="#90EE90" Offset="0.66" />
+                <!-- Light Green -->
+                <GradientStop Color="#FFFFE0" Offset="1.0" />
+                <!-- Light Yellow -->
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="33*"/>
@@ -17,14 +28,17 @@
             <RowDefinition Height="47*"/>
             <RowDefinition Height="48*"/>
         </Grid.RowDefinitions>
-        <Entry   Grid.Column="1"  Grid.ColumnSpan="1" Grid.Row="0" BackgroundColor="Black" Text="hello,world!"  />
+        <Button  x:Name="Exit" Text="退出" Clicked="Button_Clicked">
+        </Button>
         <Entry   Grid.Column="2"  Text="{Binding Path}"  Placeholder ="在这里输入查询地址"  Grid.ColumnSpan="1" Grid.Row="0" BackgroundColor="Aqua"  />
-        <ListView   Grid.Column="1"  Grid.ColumnSpan="1" Grid.Row="1" BackgroundColor="#535854"   />
-        <ListView   Grid.Column="2"  Grid.ColumnSpan="1" Grid.Row="1"   ItemsSource="{Binding ListView2Info}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="Model:StroredModel">
-                    <ViewCell>
+        <ListView  x:Name="ListView1Info"  Grid.Column="1"  Grid.ColumnSpan="1" Grid.Row="1" BackgroundColor="#71F28B"   ItemsSource="{Binding ListView1Info}"  >
+            <ListView.ItemTemplate >
+                <DataTemplate x:DataType="Model:StroredModel" >
+                    <ViewCell >
                         <Grid Padding="10">
+                            <Grid.GestureRecognizers>
+                                <PointerGestureRecognizer    PointerEntered="OnPointerEntered" PointerExited="OnPointerExited" />
+                            </Grid.GestureRecognizers>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -32,22 +46,27 @@
                                 <ColumnDefinition Width="70*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"  Grid.Row="0"
-                               Text="{Binding Path}"
-                              FontAttributes="Bold" />
-                            <Label Grid.Column="1"  Grid.Row="0"
-                           Text="{Binding Size}"
-                           FontAttributes="Bold" />
+                            <Entry IsEnabled="False" x:Name="NameEntry" IsPassword="False" Grid.Column="0"  Grid.Row="0"  Text="{Binding Path}"   FontAttributes="Bold"   Completed="OnEntryCompleted"/>
+                            <Label Grid.Column="1"  Grid.Row="0"  Text="{Binding Size}" FontAttributes="Bold" />
                         </Grid>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="打开" Clicked="OpenTapped"/>
+                            <MenuItem Text="复制" Clicked="CopyTapped"/>
+                            <MenuItem Text="删除" Clicked="DeleteTapped"/>
+                            <MenuItem Text="重命名" Clicked="RenameTapped"/>
+                        </ViewCell.ContextActions>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView   Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="2" BackgroundColor="Blue"  ItemsSource="{Binding ListView3Info}"  >
+        <ListView  x:Name="ListView2Info" Grid.Column="2"  Grid.ColumnSpan="1" Grid.Row="1"   ItemsSource="{Binding ListView2Info}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="Model:StroredModel">
                     <ViewCell>
                         <Grid Padding="10">
+                            <Grid.GestureRecognizers>
+                                <PointerGestureRecognizer   PointerEntered="OnPointerEntered" PointerExited="OnPointerExited" />
+                            </Grid.GestureRecognizers>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -55,18 +74,51 @@
                                 <ColumnDefinition Width="70*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"  Grid.Row="0"
-                       Text="{Binding Path}"
-                      FontAttributes="Bold" />
+                            <Entry IsEnabled="False" x:Name="NameEntry" IsPassword="False" Grid.Column="0"  Grid.Row="0"  Text="{Binding Path}"   FontAttributes="Bold"   Completed="OnEntryCompleted"/>
+                            <Label Grid.Column="1"  Grid.Row="0" Text="{Binding Size}"  FontAttributes="Bold" />
+                        </Grid>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="打开" Clicked="OpenTapped"/>
+                            <MenuItem Text="复制" Clicked="CopyTapped"/>
+                            <MenuItem Text="删除" Clicked="DeleteTapped"/>
+                            <MenuItem Text="重命名" Clicked="RenameTapped"/>
+                        </ViewCell.ContextActions>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView  x:Name="ListView3Info" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="2" BackgroundColor="#5B5B8D"  ItemsSource="{Binding ListView3Info}"  >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="Model:StroredModel">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.GestureRecognizers>
+                                <PointerGestureRecognizer  PointerEntered="OnPointerEntered" PointerExited="OnPointerExited" />
+                            </Grid.GestureRecognizers>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Entry IsEnabled="False" x:Name="NameEntry" IsPassword="False" Grid.Column="0"  Grid.Row="0"  Text="{Binding Path}"   FontAttributes="Bold"   Completed="OnEntryCompleted"/>
                             <Label Grid.Column="1"  Grid.Row="0"
                    Text="{Binding Size}"
                    FontAttributes="Bold" />
                         </Grid>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="打开" Clicked="OpenTapped"/>
+                            <MenuItem Text="复制" Clicked="CopyTapped"/>
+                            <MenuItem Text="删除" Clicked="DeleteTapped"/>
+                            <MenuItem Text="重命名" Clicked="RenameTapped"/>
+                        </ViewCell.ContextActions>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button  Grid.Column="0" IsEnabled="True"  Grid.Row="3" Command="{Binding startmCommand}" Text="{Binding Info}" ></Button>
+        <Button  x:Name="test" Grid.Column="0"   Grid.Row="3" Visual="Default"  IsEnabled="{Binding IsNotBusy}" Command="{Binding StartmCommand}" Text="{Binding Info}" ></Button>
+        <ActivityIndicator  Grid.Column="0" IsEnabled="True" IsVisible="True"  Grid.Row="2"  IsRunning="{Binding  IsBusy}" ></ActivityIndicator>
     </Grid>
 
 </ContentPage>
